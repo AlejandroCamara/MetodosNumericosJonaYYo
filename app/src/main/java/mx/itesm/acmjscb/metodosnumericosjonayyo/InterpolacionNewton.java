@@ -7,102 +7,162 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InterpolacionNewton.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link InterpolacionNewton#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class InterpolacionNewton extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class InterpolacionNewton extends Fragment implements View.OnClickListener {
+    private Button agregarPunto;
+    private Button eliminarPunto;
+    private Button calcular;
+    private EditText puntoX;
+    private EditText puntoY;
+    private TextView puntos;
+    private TextView resultado;
+    private ArrayList<ArrayList<Double>> coordenadas;
+    private Toast toast;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public InterpolacionNewton(){
 
-    private OnFragmentInteractionListener mListener;
-
-    public InterpolacionNewton() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InterpolacionNewton.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InterpolacionNewton newInstance(String param1, String param2) {
-        InterpolacionNewton fragment = new InterpolacionNewton();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_interpolacion_newton, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        View view = inflater.inflate(R.layout.fragment_interpolacion_newton, container, false);
+        agregarPunto = (Button) view.findViewById(R.id.Agregar);
+        eliminarPunto = (Button) view.findViewById(R.id.Eliminar);
+        calcular = (Button) view.findViewById(R.id.Calcular);
+        puntoX = (EditText) view.findViewById(R.id.PuntoX);
+        puntoY = (EditText) view.findViewById(R.id.PuntoY);
+        puntos = (TextView) view.findViewById(R.id.Puntos);
+        resultado = (TextView) view.findViewById(R.id.Resultados);
+        agregarPunto.setOnClickListener(this);
+        eliminarPunto.setOnClickListener(this);
+        calcular.setOnClickListener(this);
+        coordenadas = new ArrayList<ArrayList<Double>>();
+        return view;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.Agregar:
+                agregarValores(Double.parseDouble(puntoX.getText().toString()), Double.parseDouble(puntoY.getText().toString()));
+                imprimirValores();
+                break;
+            case R.id.Eliminar:
+                eliminarValores();
+                imprimirValores();
+                break;
+            case R.id.Calcular:
+                String res = interpolacionNewton(coordenadas);
+                toast = Toast.makeText(getActivity(), "Polinomio Generado" , Toast.LENGTH_LONG);
+                toast.show();
+                resultado.setText(res);
+                break;
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    private void agregarValores(Double puntoX, Double puntoY){
+        ArrayList<Double> puntosXY = new ArrayList<Double>(2);
+        puntosXY.add(puntoX);
+        puntosXY.add(puntoY);
+        coordenadas.add(puntosXY);
+        toast = Toast.makeText(getActivity(), "Valor agregado" , Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private void imprimirValores(){
+        String res = "";
+        for(ArrayList<Double> lista: coordenadas){
+            res += lista.get(0) + ", ";
+            res += lista.get(1) + "\n";
+        }
+        puntos.setText(res);
+    }
+
+    private void eliminarValores(){
+        if(coordenadas.size() > 0) {
+            coordenadas.remove(coordenadas.size() - 1);
+            toast = Toast.makeText(getActivity(), "Valor eliminado", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    private ArrayList<ArrayList<Double>> matrizConPuntos(ArrayList<ArrayList<Double>> puntos){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> linea;
+        for(int i = 0; i < puntos.size(); i++){
+            linea = new ArrayList<Double>(puntos.size()+1);
+            for(int j = 0; j < puntos.size()+1; j++){
+                if(j==0 || j == 1)
+                    linea.add(puntos.get(i).get(j));
+                else
+                    linea.add(0.0);
+            }
+            matriz.add(linea);
+        }
+        return matriz;
+    }
+
+    private ArrayList<Double> multiplos(ArrayList<ArrayList<Double>> matriz){
+
+        double[][] arr = new double[matriz.size()][matriz.size()+1];
+
+        for(int i = 0; i < matriz.size(); i++){
+            for(int j = 0; j < matriz.size(); j++){
+                arr[i][j] = matriz.get(i).get(j);
+            }
+        }
+
+        for(int j = 2; j < matriz.size() + 1; j++){
+            for(int i = j-1; i < matriz.size(); i++){
+                arr[i][j] = (arr[i][j-1]-arr[i-1][j-1])/(arr[i][0]-arr[i-(j-1)][0]);
+            }
+        }
+		/*
+		ArrayList<ArrayList<Double>> temp = new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> lista;
+		for(int i = 0; i < matriz.size(); i++){
+			lista = new ArrayList<Double>(matriz.size()+1);
+			for(int j = 0; j < matriz.size()+1; j++){
+				lista.add(arr[i][j]);
+			}
+			temp.add(lista);
+		}*/
+
+        ArrayList<Double> multiplos = new ArrayList<Double>();
+
+        for(int i = 0; i < matriz.size(); i++){
+            multiplos.add(arr[i][i+1]);
+        }
+
+        return multiplos;
+    }
+
+    private String polinomio(ArrayList<Double> multiplos, ArrayList<ArrayList<Double>> puntos){
+        String polinomio = Double.toString(multiplos.get(0));
+        for(int i = 1; i < multiplos.size(); i++){
+            polinomio += "+(" + Double.toString(multiplos.get(i))+"*";
+            for(int j = 0; j < i; j++){
+                polinomio += "(x-("+puntos.get(j).get(0)+"))";
+                if(j+1 < i)
+                    polinomio += "*";
+            }
+            polinomio += ")";
+        }
+        return polinomio;
+    }
+
+    private String interpolacionNewton(ArrayList<ArrayList<Double>> puntos){
+        ArrayList<ArrayList<Double>> matrizCeros = matrizConPuntos(puntos);
+        ArrayList<Double> multiplos = multiplos(matrizCeros);
+        return polinomio(multiplos, puntos);
     }
 }

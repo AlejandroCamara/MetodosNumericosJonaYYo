@@ -23,7 +23,7 @@
         android:layout_alignLeft="@+id/PuntosScroll"
         android:layout_alignStart="@+id/PuntosScroll"
         android:layout_below="@+id/textView4"
-        android:text="Instrucciones" />
+        android:text="Dame los valores separados por comas" />
 
     <EditText
         android:id="@+id/Valores"
