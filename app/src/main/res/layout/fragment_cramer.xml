@@ -20,21 +20,23 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/PuntosScroll"
-        android:layout_alignStart="@+id/PuntosScroll"
+        android:text="Dame los valores separados por comas"
         android:layout_below="@+id/textView4"
-        android:text="Dame los valores separados por comas" />
+        android:layout_alignLeft="@+id/Faltantes"
+        android:layout_alignStart="@+id/Faltantes"
+        android:layout_marginTop="14dp" />
 
     <EditText
         android:id="@+id/Valores"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:ems="10"
         android:inputType="textPersonName"
+        android:hint="Valores"
         android:layout_below="@+id/textView12"
-        android:hint="Valores" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
 
     <TextView
         android:id="@+id/Faltantes"
@@ -50,18 +52,17 @@
         android:id="@+id/Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView8"
-        android:layout_alignRight="@+id/textView8"
-        android:layout_below="@+id/Faltantes"
         android:text="Agregar\nValores"
-        />
+        android:layout_below="@+id/Faltantes"
+        android:layout_alignLeft="@+id/PuntosScroll"
+        android:layout_alignStart="@+id/PuntosScroll" />
 
     <Button
         android:id="@+id/Borrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Borrar\nValores Anteriores"
-        android:layout_below="@+id/Faltantes"
+        android:text="Borrar\nValores\nAnteriores"
+        android:layout_above="@+id/textView6"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -79,6 +80,7 @@
         android:layout_height="wrap_content"
         android:text="Valores ingresados"
         android:textSize="20sp"
+        android:layout_marginTop="12dp"
         android:layout_below="@+id/Agregar"
         android:layout_alignLeft="@+id/PuntosScroll"
         android:layout_alignStart="@+id/PuntosScroll" />
