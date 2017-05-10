@@ -19,8 +19,8 @@ import android.view.MenuItem;
 public class MenuPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Gauss.OnFragmentInteractionListener,
          GaussJordan.OnFragmentInteractionListener, Biseccion.OnFragmentInteractionListener,
-            InterpolacionNewton.OnFragmentInteractionListener, MatrizInversa.OnFragmentInteractionListener,
-            Cramer.OnFragmentInteractionListener{
+            InterpolacionNewton.OnFragmentInteractionListener, MatrizInversa.OnFragmentInteractionListener
+            {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
