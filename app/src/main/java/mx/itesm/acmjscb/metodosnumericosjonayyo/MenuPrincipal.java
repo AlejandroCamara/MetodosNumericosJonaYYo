@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MenuPrincipal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Gauss.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener,
          GaussJordan.OnFragmentInteractionListener,
              MatrizInversa.OnFragmentInteractionListener
             {
@@ -111,6 +111,10 @@ public class MenuPrincipal extends AppCompatActivity
         } else if (id == R.id.interpolacionNewton) {
             seleccionoAlgo = true;
             fragment = new InterpolacionNewton();
+        }
+        else if (id == R.id.gaussSeidel){
+            seleccionoAlgo = true;
+            fragment = new GaussSeidel();
         }
 
         if (seleccionoAlgo){

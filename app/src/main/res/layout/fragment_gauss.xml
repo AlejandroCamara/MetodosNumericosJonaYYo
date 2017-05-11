@@ -1,13 +1,72 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mx.itesm.acmjscb.metodosnumericosjonayyo.Gauss">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="SOY GAUSS" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/txtEntradaColumnas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtInstruccion"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/txtInstruccion"
+        android:layout_below="@+id/txtInstruccion"
+        android:layout_marginTop="11dp"
+        android:hint="Incógnitas y valor"
+        android:inputType="textPersonName|number|numberSigned|numberDecimal" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Método de Gauss"
+        android:textSize="30sp"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnAgregarColumnas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtEntradaColumnas"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="Agregar Columna" />
+
+    <TextView
+        android:id="@+id/txtInstruccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dame los valores separados por comas"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/titulo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="480dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/btnAgregarColumnas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:id="@+id/txtColumnasMatriz"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="14dp"
+            android:text="" />
+    </ScrollView>
+
+</RelativeLayout>

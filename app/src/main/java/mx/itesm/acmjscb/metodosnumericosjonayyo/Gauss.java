@@ -1,108 +1,100 @@
 package mx.itesm.acmjscb.metodosnumericosjonayyo;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Gauss.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Gauss#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Gauss extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class Gauss extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText entradaColumna;
+    private TextView columnas;
+    private Button agregarColumna;
+    private ArrayList<ArrayList<Double>> matriz;
+    private Toast toast;
+    private int numCoef = 0;
+    private int numIncog = 0;
 
-    private OnFragmentInteractionListener mListener;
+
 
     public Gauss() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Gauss.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Gauss newInstance(String param1, String param2) {
-        Gauss fragment = new Gauss();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_gauss, container, false);
+        entradaColumna = (EditText) view.findViewById(R.id.txtEntradaColumnas);
+        columnas = (TextView) view.findViewById(R.id.txtColumnasMatriz);
+        agregarColumna = (Button) view.findViewById(R.id.btnAgregarColumnas);
+        agregarColumna.setOnClickListener(this);
+        matriz = new ArrayList<ArrayList<Double>>();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gauss, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnAgregarColumnas:
+                try{
+                    agregarColumna(entradaColumna.getText().toString());
+                    entradaColumna.setText("");
+                    imprimirColumnas();
+                }
+                catch (Exception e){
+                    toast = Toast.makeText(view.getContext(),"Error en los datos",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                break;
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void agregarColumna(String valores){
+        ArrayList<Double> nuevaCol = new ArrayList<Double>();
+        String[] datos = valores.split(",");
+        for (int i = 0; i<datos.length; i++){
+            nuevaCol.add(Double.parseDouble(datos[i]));
+        }
+        if (matriz.size() == 0){
+            numCoef = nuevaCol.size();
+            matriz.add(nuevaCol);
+            numIncog = matriz.get(0).size()-2;
+        }
+        else if(nuevaCol.size() != numCoef){
+            toast = Toast.makeText(getActivity(), "Número de coeficientes erróneo" , Toast.LENGTH_LONG);
+            toast.show();
+        } else{
+            matriz.add(nuevaCol);
+            numIncog--;
+        }
+        toast = Toast.makeText(getActivity(),"Ecuaciones faltantes: "+numIncog,Toast.LENGTH_LONG);
+
+    }
+        //faltantes.setText("Ecuaciones faltantes: "+numIncog);
+
+
+    public void imprimirColumnas(){
+        String res = "";
+        for(ArrayList<Double> lista: matriz){
+            for(Double val: lista){
+                res += val + ",";
+            }
+            res += "\n";
+        }
+        columnas.setText(res);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }

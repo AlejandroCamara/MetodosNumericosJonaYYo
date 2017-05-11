@@ -20,6 +20,9 @@
         <item
             android:id="@+id/interpolacionNewton"
             android:title="Interpolación de Newton" />
+        <item
+            android:id="@+id/gaussSeidel"
+            android:title="Gauss Seidel" />
 
     </group>
 
