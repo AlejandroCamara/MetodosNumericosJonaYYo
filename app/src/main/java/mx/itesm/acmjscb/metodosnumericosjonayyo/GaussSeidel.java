@@ -417,6 +417,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         }
     }
 
+    //NUEVO
     public static void imprimirIteracion(double[] aproximacion, int iteraciones){
         int tamanoFila = aproximacion.length;
         DecimalFormat df = new DecimalFormat("0.000");
@@ -432,4 +433,38 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
     }
 
 
+    //ESTE ES EL MAIN DEL CODIGAXO
+//    public static void main(String[] args) throws IOException{
+//        int tamanoFila;
+//        double[][] matriz;
+//
+//        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+//        PrintWriter escritor = new PrintWriter(System.out, true);
+//
+//        System.out.println("Número de variables:");
+//        tamanoFila = Integer.parseInt(lector.readLine());
+//        matriz = new double[tamanoFila][tamanoFila+1];
+//        System.out.println("Introduce la matriz:");
+//
+//        for (int fila = 0; fila < tamanoFila; fila++)
+//        {
+//            StringTokenizer strtk = new StringTokenizer(lector.readLine());
+//
+//            while (strtk.hasMoreTokens())
+//                for (int columna = 0; columna < tamanoFila + 1 && strtk.hasMoreTokens(); columna++)
+//                    matriz[fila][columna] = Integer.parseInt(strtk.nextToken());
+//        }
+//
+//
+//        GaussSeidel gaussSeidel = new GaussSeidel(matriz);
+//
+//        if (!gaussSeidel.hacerDominante())
+//        {
+//            escritor.println("El sistema no es diagonalmente dominante: ");
+//        }
+//
+//        escritor.println();
+//        gaussSeidel.imprimirMatriz();
+//        gaussSeidel.resolver();
+//    }
 }
