@@ -1,13 +1,85 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mx.itesm.acmjscb.metodosnumericosjonayyo.GaussJordan">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Soy Gauss Jordan" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/txtEntradaColumnas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtInstruccion"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/txtInstruccion"
+        android:layout_below="@+id/txtInstruccion"
+        android:layout_marginTop="11dp"
+        android:hint="Incógnitas y valor"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="Método de Gauss-Jordan"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btnAgregarColumnas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Agregar Columna"
+        android:layout_below="@+id/txtEntradaColumnas"
+        android:layout_alignLeft="@+id/txtEntradaColumnas"
+        android:layout_alignStart="@+id/txtEntradaColumnas" />
+
+    <TextView
+        android:id="@+id/txtInstruccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dame los valores separados por comas"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/titulo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="480dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/btnAgregarColumnas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollView2">
+
+
+        <TextView
+            android:id="@+id/txtColumnasMatriz"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="14dp"
+            android:text="" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnCalcularGaussJordan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:text="Calcular" />
+
+</RelativeLayout>

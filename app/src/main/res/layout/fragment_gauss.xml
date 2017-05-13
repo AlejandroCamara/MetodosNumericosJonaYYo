@@ -18,7 +18,7 @@
         android:layout_below="@+id/txtInstruccion"
         android:layout_marginTop="11dp"
         android:hint="Incógnitas y valor"
-        android:inputType="textCapCharacters|textPersonName|number|numberSigned|numberDecimal|numberPassword" />
+        android:inputType="text|textPersonName" />
 
     <TextView
         android:id="@+id/titulo"
