@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,7 +22,8 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
     public static final int ITERACIONES_MAXIMAS = 100;
     //NUEVO
     private double[][] matriz;
-
+    //NUEVO
+    private static StringBuilder procedimiento = new StringBuilder(10000);
 
     private ArrayList<Float> arregloNumeros = new ArrayList<Float>();
     private ArrayList<Float> arregloMatriz = new ArrayList<Float>();
@@ -317,12 +319,19 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
     //NUEVO
     public void imprimirMatriz(){
         int tamanoFila = matriz.length;
+        DecimalFormat df = new DecimalFormat("0.000");
+        String filaBonita = "";
+
+
         for (int fila = 0; fila < tamanoFila; fila++)
         {
-            for (int columna = 0; columna < tamanoFila + 1; columna++)
-                System.out.print(matriz[fila][columna] + " ");
-            System.out.println();
+            for (int columna = 0; columna < tamanoFila + 1; columna++) {
+                filaBonita+=df.format(matriz[fila][columna])+" ";
+            }
+            filaBonita+="\n";
         }
+        filaBonita = filaBonita.substring(0, filaBonita.length()-1);
+        procedimiento.append(filaBonita+"\n");
     }
 
     //NUEVO
@@ -390,25 +399,36 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
                 //Actualiza a la nueva fila
                 aproximacion[fila] = 1/matriz[fila][fila] * suma;
             }
-            System.out.print("X_" + iteraciones + " = {");
-            for (int fila = 0; fila < tamanoFila; fila++) {
-                System.out.print(aproximacion[fila] + " ");
-            }
-            System.out.println("}");
+            imprimirIteracion(aproximacion, iteraciones);
             iteraciones++;
             if (iteraciones == 1) {
                 continue;
             }
             boolean detener = true;
-            for (int fila = 0; fila < tamanoFila && detener; fila++)
+            for (int fila = 0; fila < tamanoFila && detener; fila++){
                 if (Math.abs(aproximacion[fila] - previo[fila]) > epsilon) {
                     detener = false;
                 }
+            }
             if (detener || iteraciones == ITERACIONES_MAXIMAS){
                 break;
             }
             previo = (double[])aproximacion.clone();
         }
+    }
+
+    public static void imprimirIteracion(double[] aproximacion, int iteraciones){
+        int tamanoFila = aproximacion.length;
+        DecimalFormat df = new DecimalFormat("0.000");
+        String filaBonita = "";
+        filaBonita+="Iteracion ";
+        filaBonita+=iteraciones+" = {";
+        for (int fila = 0; fila < tamanoFila; fila++) {
+            filaBonita += df.format(aproximacion[fila])+" ";
+        }
+        filaBonita+="}";
+        filaBonita = filaBonita.substring(0, filaBonita.length()-1);
+        procedimiento.append(filaBonita+"\n");
     }
 
 
