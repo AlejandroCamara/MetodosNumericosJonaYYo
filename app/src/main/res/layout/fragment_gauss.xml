@@ -18,7 +18,7 @@
         android:layout_below="@+id/txtInstruccion"
         android:layout_marginTop="11dp"
         android:hint="Incógnitas y valor"
-        android:inputType="textPersonName|number|numberSigned|numberDecimal" />
+        android:inputType="textCapCharacters|textPersonName|number|numberSigned|numberDecimal|numberPassword" />
 
     <TextView
         android:id="@+id/titulo"
@@ -34,10 +34,11 @@
         android:id="@+id/btnAgregarColumnas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEntradaColumnas"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
-        android:text="Agregar Columna" />
+        android:text="Agregar Columna"
+        android:layout_below="@+id/txtEntradaColumnas"
+        android:layout_alignLeft="@+id/txtEntradaColumnas"
+        android:layout_alignStart="@+id/txtEntradaColumnas" />
 
     <TextView
         android:id="@+id/txtInstruccion"
@@ -57,7 +58,9 @@
         android:layout_marginTop="14dp"
         android:layout_below="@+id/btnAgregarColumnas"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollView2">
 
 
         <TextView
@@ -68,5 +71,16 @@
             android:layout_marginTop="14dp"
             android:text="" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnCalcularGauss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:text="Calcular" />
 
 </RelativeLayout>
