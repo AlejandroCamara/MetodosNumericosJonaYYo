@@ -17,6 +17,12 @@ import java.util.Arrays;
 
 
 public class GaussSeidel extends Fragment  implements  View.OnClickListener {
+    //NUEVO
+    public static final int ITERACIONES_MAXIMAS = 100;
+    //NUEVO
+    private double[][] matriz;
+
+
     private ArrayList<Float> arregloNumeros = new ArrayList<Float>();
     private ArrayList<Float> arregloMatriz = new ArrayList<Float>();
     private Button agregar;
@@ -306,4 +312,104 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         }
         return res;
     }
+
+
+    //NUEVO
+    public void imprimirMatriz(){
+        int tamanoFila = matriz.length;
+        for (int fila = 0; fila < tamanoFila; fila++)
+        {
+            for (int columna = 0; columna < tamanoFila + 1; columna++)
+                System.out.print(matriz[fila][columna] + " ");
+            System.out.println();
+        }
+    }
+
+    //NUEVO
+    public boolean transformarDominante(int tamanoDom, boolean[] Visitado, int[] Fila){
+        int tamanoFila = matriz.length;
+        if (tamanoDom == matriz.length)
+        {
+            double[][] temp = new double[tamanoFila][tamanoFila+1];
+            for (int fila = 0; fila < Fila.length; fila++)
+            {
+                for (int columna = 0; columna < tamanoFila + 1; columna++)
+                    temp[fila][columna] = matriz[Fila[fila]][columna];
+            }
+            matriz = temp;
+            return true;
+        }
+        for (int fila = 0; fila < tamanoFila; fila++) {
+            if (Visitado[fila]){
+                continue;
+            }
+            double suma = 0;
+            for (int columna = 0; columna < tamanoFila; columna++) {
+                suma += Math.abs(matriz[fila][columna]);
+            }
+            if (2 * Math.abs(matriz[fila][tamanoDom]) > suma) { // diagonally dominant?
+                Visitado[fila] = true;
+                Fila[tamanoDom] = fila;
+                if (transformarDominante(tamanoDom + 1, Visitado, Fila)) {
+                    return true;
+                }
+                Visitado[fila] = false;
+            }
+        }
+        return false;
+    }
+
+    //NUEVO
+    public boolean hacerDominante(){
+        boolean[] visitado = new boolean[matriz.length];
+        int[] filas = new int[matriz.length];
+
+        Arrays.fill(visitado, false);
+
+        return transformarDominante(0, visitado, filas);
+    }
+
+    //NUEVO
+    public void resolver(){
+        int iteraciones = 0;
+        int tamanoFila = matriz.length;
+        double epsilon = 1e-15;
+        double[] aproximacion = new double[tamanoFila]; // Aproximaciones
+        double[] previo = new double[tamanoFila]; // Previo
+        Arrays.fill(aproximacion, 0);
+
+        while (true) {
+            for (int fila = 0; fila < tamanoFila; fila++) {
+                double suma = matriz[fila][tamanoFila]; // b_n
+
+                for (int columna = 0; columna < tamanoFila; columna++){
+                    if (columna != fila){
+                        suma -= matriz[fila][columna] * aproximacion[columna];
+                    }
+                }
+                //Actualiza a la nueva fila
+                aproximacion[fila] = 1/matriz[fila][fila] * suma;
+            }
+            System.out.print("X_" + iteraciones + " = {");
+            for (int fila = 0; fila < tamanoFila; fila++) {
+                System.out.print(aproximacion[fila] + " ");
+            }
+            System.out.println("}");
+            iteraciones++;
+            if (iteraciones == 1) {
+                continue;
+            }
+            boolean detener = true;
+            for (int fila = 0; fila < tamanoFila && detener; fila++)
+                if (Math.abs(aproximacion[fila] - previo[fila]) > epsilon) {
+                    detener = false;
+                }
+            if (detener || iteraciones == ITERACIONES_MAXIMAS){
+                break;
+            }
+            previo = (double[])aproximacion.clone();
+        }
+    }
+
+
 }
