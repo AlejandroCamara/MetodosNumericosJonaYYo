@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/Contenedor"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Contenedor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorControlHighlight"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="mx.itesm.acmjscb.metodosnumericosjonayyo.MenuPrincipal"
     tools:showIn="@layout/app_bar_menu_principal">
