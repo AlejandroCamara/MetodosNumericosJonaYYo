@@ -1,110 +1,15 @@
 package mx.itesm.acmjscb.metodosnumericosjonayyo;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import java.util.Arrays;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class MatrizInversa extends Fragment implements View.OnClickListener{
-
+public class MatrizInversaChida
+{
     private static StringBuilder procedimiento = new StringBuilder(1000);
-
-    private EditText entradaFila;
-    private TextView filas;
-    private Button agregarFila;
-    private Button calcularInversa;
-    private ArrayList<ArrayList<Double>> matriz;
-    private Toast toast;
-
-    public MatrizInversa() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matriz_inversa, container, false);
-        entradaFila = (EditText) view.findViewById(R.id.txtEntradaFilas);
-        filas = (TextView) view.findViewById(R.id.txtFilasMatriz);
-        agregarFila = (Button) view.findViewById(R.id.btnAgregarFilas);
-        calcularInversa = (Button) view.findViewById(R.id.btnCalcularInversa);
-        agregarFila.setOnClickListener(this);
-        calcularInversa.setOnClickListener(this);
-        matriz = new ArrayList<ArrayList<Double>>();
-
-        // Inflate the layout for this fragment
-        return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnAgregarFilas:
-                try{
-                    agregarColumna(entradaFila.getText().toString());
-                    entradaFila.setText("");
-                    toast = Toast.makeText(view.getContext(),"wololo",Toast.LENGTH_LONG);
-                    toast.show();
-                    imprimirColumnas();
-                }
-                catch (Exception e){
-                    toast = Toast.makeText(view.getContext(),"Error en los datos",Toast.LENGTH_LONG);
-                    toast.show();
-                }
-                break;
-
-            case R.id.btnCalcularInversa:
-                try{
-                    if (matriz.size() == matriz.get(0).size()){
-                        calcularMatrizInversa(matriz);
-                        filas.setText(procedimiento.toString());
-                        procedimiento = new StringBuilder(1000);
-                        matriz = new ArrayList<ArrayList<Double>>();
-                    }
-                    else{
-                        matriz = new ArrayList<ArrayList<Double>>();
-                        filas.setText("");
-                        toast = Toast.makeText(view.getContext(),"La matriz debe ser cuadrada",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }
-                catch (Exception e){
-                    toast = Toast.makeText(view.getContext(),"Error inesperado",Toast.LENGTH_LONG);
-                    toast.show();
-                }
-        }
-    }
-
-    public void agregarColumna(String valores){
-        ArrayList<Double> nuevaCol = new ArrayList<Double>();
-        String[] datos = valores.split(",");
-        for (int i = 0; i<datos.length; i++){
-            nuevaCol.add(Double.parseDouble(datos[i]));
-        }
-        matriz.add(nuevaCol);
-    }
-
-    public void imprimirColumnas(){
-        String res = "La matriz es:\n";
-        for(ArrayList<Double> lista: matriz){
-            res += lista.toString();
-            res += "\n";
-        }
-        filas.setText(res);
-    }
-
-
-    public static void calcularMatrizInversa(ArrayList<ArrayList<Double>> entrada)
+    public static void main(String[] args)
     {
-        ArrayList<ArrayList<Double>> matTemp = entrada;
+        ArrayList<ArrayList<Double>> matTemp = ejemplo4();
 
         // PASAR DE ARRAYLIST A DOUBLE[][]
         Double[][] matriz= new Double [matTemp.size()][matTemp.size()];
@@ -142,6 +47,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
                 procedimiento.append("\n*** COMPROBACIÓN: MATRIZ IDENTIDAD OBTENIDA ***\n");
                 MatId = identidad(matriz,MatTrans,determinante);
                 imprimirMatriz(MatId);
+                System.out.println(procedimiento.toString());
             }
         }
         catch (Exception e) {
@@ -265,4 +171,127 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
 
         procedimiento.append("\n");
     }
+
+    public static ArrayList<ArrayList<Double>> ejemplo1(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(-3.0);
+        fila.add(2.0);
+        fila.add(4.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(2.0);
+        fila.add(5.0);
+        fila.add(4.0);
+        fila.add(1.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(0.0);
+        fila.add(-1.0);
+        fila.add(8.0);
+        fila.add(-2.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(3.0);
+        fila.add(-1.0);
+        fila.add(-4.0);
+        fila.add(-2.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
+    public static ArrayList<ArrayList<Double>> ejemplo2(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(-3.0);
+        fila.add(5.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(-3.0);
+        fila.add(-2.0);
+        fila.add(0.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(5.0);
+        fila.add(0.0);
+        fila.add(-1.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
+    public static ArrayList<ArrayList<Double>> ejemplo3(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(3.0);
+        fila.add(3.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(4.0);
+        fila.add(5.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(3.0);
+        fila.add(4.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
+    public static ArrayList<ArrayList<Double>> ejemplo4(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(0.0);
+        fila.add(-4.0);
+        fila.add(-3.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(-3.0);
+        fila.add(1.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(2.0);
+        fila.add(5.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
+    public static ArrayList<ArrayList<Double>> ejemplo5(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(1.0);
+        fila.add(-5.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(3.0);
+        fila.add(-1.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
+    public static ArrayList<ArrayList<Double>> ejemplo6(){
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> fila = new ArrayList<Double>();
+        fila.add(3.0);
+        fila.add(0.0);
+        fila.add(2.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(2.0);
+        fila.add(0.0);
+        fila.add(-2.0);
+        matriz.add(fila);
+        fila = new ArrayList<Double>();
+        fila.add(0.0);
+        fila.add(1.0);
+        fila.add(1.0);
+        matriz.add(fila);
+        return matriz;
+    }
+
 }

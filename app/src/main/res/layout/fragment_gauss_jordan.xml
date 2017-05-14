@@ -7,7 +7,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <EditText
-        android:id="@+id/txtEntradaColumnas"
+        android:id="@+id/txtEntradaFilas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtInstruccion"
@@ -30,14 +30,16 @@
         android:textSize="30sp" />
 
     <Button
-        android:id="@+id/btnAgregarColumnas"
+        android:id="@+id/btnAgregarFilas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:text="Agregar Columna"
-        android:layout_below="@+id/txtEntradaColumnas"
-        android:layout_alignLeft="@+id/txtEntradaColumnas"
-        android:layout_alignStart="@+id/txtEntradaColumnas" />
+        android:text="Agregar Fila"
+        android:layout_below="@+id/txtEntradaFilas"
+        android:layout_alignLeft="@+id/titulo"
+        android:layout_alignStart="@+id/titulo"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp" />
 
     <TextView
         android:id="@+id/txtInstruccion"
@@ -55,7 +57,7 @@
         android:layout_width="480dp"
         android:layout_height="200dp"
         android:layout_marginTop="14dp"
-        android:layout_below="@+id/btnAgregarColumnas"
+        android:layout_below="@+id/btnAgregarFilas"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"

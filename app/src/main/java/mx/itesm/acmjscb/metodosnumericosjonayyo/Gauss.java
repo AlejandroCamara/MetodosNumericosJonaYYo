@@ -35,9 +35,9 @@ public class Gauss extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gauss, container, false);
-        entradaColumna = (EditText) view.findViewById(R.id.txtEntradaColumnas);
+        entradaColumna = (EditText) view.findViewById(R.id.txtEntradaFilas);
         columnas = (TextView) view.findViewById(R.id.txtColumnasMatriz);
-        agregarColumna = (Button) view.findViewById(R.id.btnAgregarColumnas);
+        agregarColumna = (Button) view.findViewById(R.id.btnAgregarFilas);
         calcularGauss = (Button) view.findViewById(R.id.btnCalcularGauss);
         agregarColumna.setOnClickListener(this);
         calcularGauss.setOnClickListener(this);
@@ -50,7 +50,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btnAgregarColumnas:
+            case R.id.btnAgregarFilas:
                 try{
                     agregarColumna(entradaColumna.getText().toString());
                     entradaColumna.setText("");
@@ -66,6 +66,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
                 try{
                     calcularGauss();
                     procedimiento = new StringBuilder(10000);
+                    matriz = new ArrayList<ArrayList<Double>>();
                 }
                 catch (Exception e){
                     toast = Toast.makeText(view.getContext(),"Error inesperado",Toast.LENGTH_LONG);
@@ -251,9 +252,9 @@ public class Gauss extends Fragment implements View.OnClickListener {
         for (ArrayList<Double> fila : mat){
             filaBonita = "[";
             for (Double num: fila){
-                filaBonita += df.format(num)+",";
+                filaBonita += df.format(num)+"   ";
             }
-            filaBonita = filaBonita.substring(0, filaBonita.length()-1);
+            filaBonita = filaBonita.substring(0, filaBonita.length()-3);
             filaBonita +="]";
             procedimiento.append(filaBonita+"\n");
             filaBonita = "";
