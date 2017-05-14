@@ -33,13 +33,15 @@
         android:id="@+id/btnAgregarFilas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Fila"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_below="@+id/txtEntradaFilas"
         android:layout_alignLeft="@+id/txtEntradaFilas"
         android:layout_alignStart="@+id/txtEntradaFilas"
-        android:layout_marginTop="15dp" />
+        android:layout_below="@+id/txtEntradaFilas"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/side_nav_bar"
+        android:text="Agregar Fila"
+        android:textColor="?android:attr/colorButtonNormal" />
 
     <TextView
         android:id="@+id/txtInstruccion"
@@ -78,10 +80,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/scrollView2"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:text="Calcular" />
+        android:layout_alignEnd="@+id/txtEntradaFilas"
+        android:layout_alignRight="@+id/txtEntradaFilas"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:background="@drawable/side_nav_bar"
+        android:text="Calcular"
+        android:textColor="?android:attr/colorButtonNormal" />
 
 </RelativeLayout>

@@ -52,27 +52,33 @@
         android:id="@+id/btnAgregarFila"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar\nValores"
-        android:layout_below="@+id/Faltantes"
         android:layout_alignLeft="@+id/PuntosScroll"
-        android:layout_alignStart="@+id/PuntosScroll" />
+        android:layout_alignStart="@+id/PuntosScroll"
+        android:layout_below="@+id/Faltantes"
+        android:background="@drawable/side_nav_bar"
+        android:text="Agregar\nValores"
+        android:textColor="?android:attr/colorButtonNormal" />
 
     <Button
         android:id="@+id/Borrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Borrar\nValores\nAnteriores"
         android:layout_above="@+id/textView6"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/side_nav_bar"
+        android:text="Borrar\nValores\nAnteriores"
+        android:textColor="?android:attr/colorButtonNormal" />
 
     <Button
         android:id="@+id/Calcular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calcular"
-        android:layout_below="@+id/Faltantes"
+        android:layout_alignEnd="@+id/PuntosScroll"
         android:layout_alignRight="@+id/PuntosScroll"
-        android:layout_alignEnd="@+id/PuntosScroll" />
+        android:layout_below="@+id/Faltantes"
+        android:background="@drawable/side_nav_bar"
+        android:text="Calcular"
+        android:textColor="?android:attr/colorButtonNormal" />
 
     <TextView
         android:id="@+id/textView6"
