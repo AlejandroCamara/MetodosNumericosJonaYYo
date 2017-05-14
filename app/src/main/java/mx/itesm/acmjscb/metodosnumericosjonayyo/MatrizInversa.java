@@ -51,7 +51,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
                 try{
                     agregarColumna(entradaFila.getText().toString());
                     entradaFila.setText("");
-                    toast = Toast.makeText(view.getContext(),"wololo",Toast.LENGTH_LONG);
+                    toast = Toast.makeText(view.getContext(),"Fila Agregada",Toast.LENGTH_LONG);
                     toast.show();
                     imprimirColumnas();
                 }

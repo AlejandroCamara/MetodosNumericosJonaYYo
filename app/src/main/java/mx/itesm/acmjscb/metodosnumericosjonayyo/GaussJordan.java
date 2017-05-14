@@ -53,6 +53,8 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
                 try{
                     agregarColumna(entradaColumna.getText().toString());
                     entradaColumna.setText("");
+                    toast = Toast.makeText(view.getContext(),"Fila Agregada",Toast.LENGTH_LONG);
+                    toast.show();
                     imprimirColumnas();
                 }
                 catch (Exception e){
