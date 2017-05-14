@@ -304,16 +304,17 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         ArrayList<ArrayList<Double>> matTemp = entrada;
 
         // PASAR DE ARRAYLIST A DOUBLE[][]
-        matriz = new double[matTemp.size()][matTemp.size()];
+        matriz = new double[matTemp.size()][matTemp.get(0).size()];
         for (int fila = 0; fila < matTemp.size(); fila++) {
             for (int col = 0; col < matTemp.size(); col++) {
                 matriz[fila][col] = matTemp.get(fila).get(col);
             }
         }
-        GaussSeidelChido gaussSeidel = new GaussSeidelChido();
+        GaussSeidelChido gaussSeidel = new GaussSeidelChido(matriz);
         if (hacerDominante()){
             procedimiento.append("\n*** EL SISTEMA NO ES DIAGONALMENTE DOMINANTE ***\n");
         }
+        procedimiento.append("\n*** MATRIZ ORIGINAL ***\n");
         imprimirMatriz();
         resolver();
 

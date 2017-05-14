@@ -17,7 +17,7 @@ public class GaussSeidelChido {
     private static StringBuilder procedimiento = new StringBuilder(1000);
     private static double[][] matriz;
 
-
+    public GaussSeidelChido(double [][] MATRIZO) { matriz = MATRIZO; }
     public static void main(String[] args){
         ArrayList<ArrayList<Double>> matTemp = ejemplo1();
 
