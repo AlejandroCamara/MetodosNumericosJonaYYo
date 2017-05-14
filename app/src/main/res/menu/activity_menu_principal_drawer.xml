@@ -20,9 +20,6 @@
             android:title="Matriz Inversa" />
 
         <item
-            android:id="@+id/biseccion"
-            android:title="Bisección" />
-        <item
             android:id="@+id/interpolacionNewton"
             android:title="Interpolación de Newton" />
 

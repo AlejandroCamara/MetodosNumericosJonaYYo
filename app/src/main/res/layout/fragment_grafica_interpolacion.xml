@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ap="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.itesm.acmjscb.metodosnumericosjonayyo.GraficaInterpolacion">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.androidplot.xy.XYPlot
+        style="@style/APDefacto.Dark"
+        android:id="@+id/mySimpleXYPlot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        ap:title="Polinomio de Newton"
+        ap:rangeTitle="Eje Y"
+        ap:domainTitle="Eje X"
+        ap:lineLabels="left|bottom"
+        ap:lineLabelRotationBottom="-45"
+        />
+
+</RelativeLayout>

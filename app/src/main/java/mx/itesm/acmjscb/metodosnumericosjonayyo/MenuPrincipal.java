@@ -16,8 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MenuPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static ArrayList<Number> valoresX = new ArrayList<Number>();
+    public static ArrayList<Number> valoresY = new ArrayList<Number>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +90,7 @@ public class MenuPrincipal extends AppCompatActivity
         boolean seleccionoAlgo = false;
         int id = item.getItemId();
 
-        if (id == R.id.biseccion) {
-            // Handle the camera action
-            seleccionoAlgo = true;
-            fragment = new Biseccion();
-        } else if (id == R.id.gauss) {
+        if (id == R.id.gauss) {
             seleccionoAlgo = true;
             fragment = new Gauss();
 
