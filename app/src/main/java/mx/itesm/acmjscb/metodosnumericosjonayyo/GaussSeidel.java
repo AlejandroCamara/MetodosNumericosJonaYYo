@@ -81,7 +81,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         }
     }
 
-    public void agregarColumna(String valores){
+    private void agregarColumna(String valores){
         ArrayList<Double> nuevaCol = new ArrayList<Double>();
         String[] datos = valores.split(",");
         for (int i = 0; i<datos.length; i++){
@@ -90,7 +90,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         matrizEntrada.add(nuevaCol);
     }
 
-    public void imprimirColumnas(){
+    private void imprimirColumnas(){
         String res = "La matriz es:\n";
         for(ArrayList<Double> lista: matrizEntrada){
             res += lista.toString();
@@ -100,7 +100,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
     }
 
 
-    public static void calcularGaussSeidel( ArrayList<ArrayList<Double>> entrada) {
+    private static void calcularGaussSeidel( ArrayList<ArrayList<Double>> entrada) {
         int tamanoFila;
 
         ArrayList<ArrayList<Double>> mat = entrada;
@@ -121,7 +121,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         System.out.println(procedimiento.toString());
     }
 
-    public static void imprimirMatriz(double[][] matriz){
+    private static void imprimirMatriz(double[][] matriz){
         int tamanoFila = matriz.length;
         DecimalFormat df = new DecimalFormat("0.000");
         String filaBonita = "";
@@ -140,7 +140,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         procedimiento.append("\n");
     }
 
-    public static boolean transformarDominante(double[][] matriz,int tamanoDom, boolean[] Visitado, int[] Fila){
+    private static boolean transformarDominante(double[][] matriz,int tamanoDom, boolean[] Visitado, int[] Fila){
         int tamanoFila = matriz.length;
         if (tamanoDom == matriz.length)
         {
@@ -180,7 +180,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         return false;
     }
 
-    public static boolean hacerDominante(double[][] matriz){
+    private static boolean hacerDominante(double[][] matriz){
         boolean[] visitado = new boolean[matriz.length];
         int[] filas = new int[matriz.length];
 
@@ -189,7 +189,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         return transformarDominante(matriz,0, visitado, filas);
     }
 
-    public static void resolver(double[][] matriz){
+    private static void resolver(double[][] matriz){
         int iteraciones = 0;
         int tamanoFila = matriz.length;
         double epsilon = 1e-15;
@@ -227,7 +227,7 @@ public class GaussSeidel extends Fragment  implements  View.OnClickListener {
         }
     }
     //NUEVO
-    public static void imprimirIteracion(double[] aproximacion, int iteraciones){
+    private static void imprimirIteracion(double[] aproximacion, int iteraciones){
         int tamanoFila = aproximacion.length;
         DecimalFormat df = new DecimalFormat("0.00000000000000000000");
         String filaBonita = "";

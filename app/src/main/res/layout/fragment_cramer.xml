@@ -6,152 +6,82 @@
     tools:context="mx.itesm.acmjscb.metodosnumericosjonayyo.Cramer">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
+
+    <EditText
+        android:id="@+id/txtEntradaFilas"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Método de Cramer"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:hint="Incógnitas y valor"
+        android:inputType="text"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/txtInstruccion"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="Método de Cramer"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btnAgregarFilas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/side_nav_bar"
+        android:text="Agregar Fila"
+        android:textColor="?android:attr/colorButtonNormal"
+        android:layout_below="@+id/txtEntradaFilas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp" />
+
+    <TextView
+        android:id="@+id/txtInstruccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dame los valores separados por comas"
-        android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/Faltantes"
-        android:layout_alignStart="@+id/Faltantes"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/titulo"
+        android:layout_alignLeft="@+id/titulo"
+        android:layout_alignStart="@+id/titulo" />
 
-    <EditText
-        android:id="@+id/Valores"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Valores"
-        android:layout_below="@+id/textView12"
+    <ScrollView
+        android:layout_width="480dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/btnAgregarFilas"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp" />
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollView2">
 
-    <TextView
-        android:id="@+id/Faltantes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
-        android:layout_below="@+id/Valores"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
 
-    <Button
-        android:id="@+id/btnAgregarFila"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/PuntosScroll"
-        android:layout_alignStart="@+id/PuntosScroll"
-        android:layout_below="@+id/Faltantes"
-        android:background="@drawable/side_nav_bar"
-        android:text="Agregar\nValores"
-        android:textColor="?android:attr/colorButtonNormal" />
+        <TextView
+            android:id="@+id/txtFilasMatriz"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="14dp"
+            android:text="" />
+    </ScrollView>
 
     <Button
-        android:id="@+id/Borrar"
+        android:id="@+id/btnCalcularCramer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/side_nav_bar"
-        android:text="Borrar\nValores\nAnteriores"
-        android:textColor="?android:attr/colorButtonNormal" />
-
-    <Button
-        android:id="@+id/Calcular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/PuntosScroll"
-        android:layout_alignRight="@+id/PuntosScroll"
-        android:layout_below="@+id/Faltantes"
+        android:layout_above="@+id/scrollView2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:background="@drawable/side_nav_bar"
         android:text="Calcular"
         android:textColor="?android:attr/colorButtonNormal" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Valores ingresados"
-        android:textSize="20sp"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/btnAgregarFila"
-        android:layout_alignLeft="@+id/PuntosScroll"
-        android:layout_alignStart="@+id/PuntosScroll" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/PuntosScroll"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/textView6"
-        android:fillViewport="true">
-
-        <TextView
-            android:id="@+id/Puntos"
-            android:layout_width="361dp"
-            android:layout_height="125dp"
-            android:lines="20"
-            android:scrollHorizontally="false"
-            android:scrollbars="vertical"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resultado"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="279dp"
-        android:textSize="20sp"
-        android:layout_below="@+id/PuntosScroll"
-        android:layout_alignLeft="@+id/PuntosScroll"
-        android:layout_alignStart="@+id/PuntosScroll" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/ResultadosScroll"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/textView8"
-        android:fillViewport="true">
-
-        <TextView
-            android:id="@+id/Resultados"
-            android:layout_width="0dp"
-            android:layout_height="191dp"
-            android:lines="20"
-            android:scrollHorizontally="false"
-            android:scrollbars="vertical"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
 
 </RelativeLayout>

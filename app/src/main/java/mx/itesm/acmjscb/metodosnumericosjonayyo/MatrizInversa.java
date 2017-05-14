@@ -83,7 +83,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         }
     }
 
-    public void agregarColumna(String valores){
+    private void agregarColumna(String valores){
         ArrayList<Double> nuevaCol = new ArrayList<Double>();
         String[] datos = valores.split(",");
         for (int i = 0; i<datos.length; i++){
@@ -92,7 +92,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         matriz.add(nuevaCol);
     }
 
-    public void imprimirColumnas(){
+    private void imprimirColumnas(){
         String res = "La matriz es:\n";
         for(ArrayList<Double> lista: matriz){
             res += lista.toString();
@@ -102,7 +102,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
     }
 
 
-    public static void calcularMatrizInversa(ArrayList<ArrayList<Double>> entrada)
+    private static void calcularMatrizInversa(ArrayList<ArrayList<Double>> entrada)
     {
         ArrayList<ArrayList<Double>> matTemp = entrada;
 
@@ -149,7 +149,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         }
     }
 
-    public static Double[][] identidad(Double[][] matriz, Double[][] MatTrans, Double determinante){
+    private static Double[][] identidad(Double[][] matriz, Double[][] MatTrans, Double determinante){
         Double[][] matID = new Double[MatTrans.length][MatTrans.length];
         for (int fila = 0; fila < MatTrans.length; fila++)
         {
@@ -166,7 +166,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         return matID;
     }
 
-    public static Double[][] inversa(Double[][] MatTrans, Double determinante){
+    private static Double[][] inversa(Double[][] MatTrans, Double determinante){
         Double[][] matInv = new Double[MatTrans.length][MatTrans.length];
         for (int fila = 0; fila < MatTrans.length; fila++) {
             for (int columna = 0; columna < MatTrans.length; columna++) {
@@ -176,7 +176,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         return matInv;
     }
 
-    public Double determinante(int fila, Double [][]matriz)
+    private Double determinante(int fila, Double [][]matriz)
     {
         if (matriz.length==2)
         {
@@ -221,7 +221,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
     }
 
     //metodo para calcular la adjunta de una matrzi
-    public Double [][] adjuntaMatriz(Double [][]matriz)
+    private Double [][] adjuntaMatriz(Double [][]matriz)
     {
         Double[][]tempAdjunta=new Double[matriz.length][matriz.length];
         for (int fila = 0; fila < tempAdjunta.length; fila++)
@@ -237,7 +237,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
     }
 
     //metodo para obtener la transpuesta de la matriz
-    public Double [][] transpuestaMatriz(Double [][]matriz) {
+    private Double [][] transpuestaMatriz(Double [][]matriz) {
 
         Double[][]tempTranspuesta=new Double[matriz.length][matriz.length];
         for (int fila = 0; fila < tempTranspuesta.length; fila++)
@@ -249,7 +249,7 @@ public class MatrizInversa extends Fragment implements View.OnClickListener{
         return tempTranspuesta;
     }
 
-    public static void imprimirMatriz(Double[][] mat){
+    private static void imprimirMatriz(Double[][] mat){
         DecimalFormat df = new DecimalFormat("0.000");
         String filaBonita = "";
         for (Double[] fila: mat){

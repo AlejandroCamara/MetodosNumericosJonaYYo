@@ -10,21 +10,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Cramer extends Fragment implements View.OnClickListener{
 
-    private Button agregar;
-    private Button borrar;
-    private Button calcular;
-    private EditText valores;
-    private TextView coeficientes;
-    private TextView faltantes;
-    private TextView resultados;
+    //NUEVO
+    public static final int ITERACIONES_MAXIMAS = 100;
+    //NUEVO
+    private  ArrayList<ArrayList<Double>> matrizEntrada;
+    //NUEVO
+    private static StringBuilder procedimiento = new StringBuilder(1000);
+
+    private EditText entradaFila;
+    private TextView filas;
+    private Button agregarFila;
+    private Button calcularCramer;
     private Toast toast;
-    private ArrayList<ArrayList<Double>> ecuaciones;
-    private Integer numIncog = 0;
-    private Integer numCoef = 0;
 
     public Cramer() {
         // Required empty public constructor
@@ -34,97 +37,100 @@ public class Cramer extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cramer, container, false);
-        ecuaciones = new ArrayList<ArrayList<Double>>();
-        agregar = (Button) view.findViewById(R.id.btnAgregarFila);
-        borrar = (Button) view.findViewById(R.id.Borrar);
-        calcular = (Button) view.findViewById(R.id.Calcular);
-        valores = (EditText) view.findViewById(R.id.Valores);
-        faltantes = (TextView) view.findViewById(R.id.Faltantes);
-        coeficientes = (TextView) view.findViewById(R.id.Puntos);
-        resultados = (TextView) view.findViewById(R.id.Resultados);
-        agregar.setOnClickListener(this);
-        borrar.setOnClickListener(this);
-        calcular.setOnClickListener(this);
+        entradaFila = (EditText) view.findViewById(R.id.txtEntradaFilas);
+        filas = (TextView) view.findViewById(R.id.txtFilasMatriz);
+        agregarFila = (Button) view.findViewById(R.id.btnAgregarFilas);
+        calcularCramer = (Button) view.findViewById(R.id.btnCalcularCramer);
+        agregarFila.setOnClickListener(this);
+        calcularCramer.setOnClickListener(this);
+
+        matrizEntrada = new ArrayList<ArrayList<Double>>();
         return view;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnAgregarFila:
-                try {
-                    leerEntrada(valores.getText().toString());
-                } catch(Exception e){
-                    toast = Toast.makeText(getActivity(), "Error en los valores ingresados" , Toast.LENGTH_LONG);
+        switch (view.getId()){
+            case R.id.btnAgregarFilas:
+                try{
+                    agregarColumna(entradaFila.getText().toString());
+                    entradaFila.setText("");
+                    toast = Toast.makeText(view.getContext(),"Fila Agregada",Toast.LENGTH_LONG);
                     toast.show();
+                    imprimirColumnas();
                 }
-                imprimirValores();
-                break;
-            case R.id.Borrar:
-                eliminarValores();
-                imprimirValores();
-                break;
-            case R.id.Calcular:
-                if(numIncog == 0) {
-                    toast = Toast.makeText(getActivity(), "Resultados calculados", Toast.LENGTH_LONG);
-                    toast.show();
-                    resultados.setText(metodoDeCrammer(ecuaciones));
-                }else if(numIncog < 0){
-                    toast = Toast.makeText(getActivity(), "Sobran líneas de coeficientes" , Toast.LENGTH_LONG);
-                    toast.show();
-                } else{
-                    toast = Toast.makeText(getActivity(), "Faltan líneas de coeficientes" , Toast.LENGTH_LONG);
+                catch (Exception e){
+                    toast = Toast.makeText(view.getContext(),"Error en los datos",Toast.LENGTH_LONG);
                     toast.show();
                 }
                 break;
+
+            case R.id.btnCalcularCramer:
+                try{
+                    if (matrizEntrada.get(0).size()-1 == matrizEntrada.size()){
+                        calcularCramer(matrizEntrada);
+                        filas.setText(procedimiento.toString());
+                    }
+                    else{
+                        toast = Toast.makeText(view.getContext(),"Cuida el número de ecuaciones e incógnitas",Toast.LENGTH_LONG);
+                        toast.show();
+                        filas.setText("No se puede resolver");
+                    }
+                    procedimiento = new StringBuilder(1000);
+                    matrizEntrada = new ArrayList<ArrayList<Double>>();
+
+                }
+                catch (Exception e){
+                    toast = Toast.makeText(view.getContext(),"Error inesperado",Toast.LENGTH_LONG);
+                    toast.show();
+                }
         }
     }
 
-    private void leerEntrada(String valores) throws Exception{
-        ArrayList<Double> coef = new ArrayList<Double>();
-        String[] valoresSimples = valores.split(",");
-        for(int i = 0; i < valoresSimples.length; i++){
-            coef.add(Double.parseDouble(valoresSimples[i]));
+    public void agregarColumna(String valores){
+        ArrayList<Double> nuevaCol = new ArrayList<Double>();
+        String[] datos = valores.split(",");
+        for (int i = 0; i<datos.length; i++){
+            nuevaCol.add(Double.parseDouble(datos[i]));
         }
-        toast = Toast.makeText(getActivity(), "Valores agregados" , Toast.LENGTH_LONG);
-        toast.show();
-        if (ecuaciones.size() == 0){
-            numCoef = coef.size();
-            ecuaciones.add(coef);
-            numIncog = ecuaciones.get(0).size()-2;
-        }
-        else if(coef.size() != numCoef){
-            toast = Toast.makeText(getActivity(), "Número de coeficientes erróneo" , Toast.LENGTH_LONG);
-            toast.show();
-        } else{
-            ecuaciones.add(coef);
-            numIncog--;
-        }
-        faltantes.setText("Ecuaciones faltantes: "+numIncog);
+        matrizEntrada.add(nuevaCol);
     }
 
-    private void imprimirValores(){
-        String res = "";
-        for(ArrayList<Double> lista: ecuaciones){
-            for(Double val: lista){
-                res += val + ",";
-            }
+    public void imprimirColumnas(){
+        String res = "La matriz es:\n";
+        for(ArrayList<Double> lista: matrizEntrada){
+            res += lista.toString();
             res += "\n";
         }
-        coeficientes.setText(res);
+        filas.setText(res);
     }
 
-    private void eliminarValores(){
-        if(ecuaciones.size() > 0) {
-            numIncog++;
-            ecuaciones.remove(ecuaciones.size() - 1);
-            toast = Toast.makeText(getActivity(), "Valores eliminados", Toast.LENGTH_LONG);
-            toast.show();
-            faltantes.setText("Ecuaciones faltantes: "+numIncog);
+    public static void calcularCramer( ArrayList<ArrayList<Double>> entrada) {
+        ArrayList<ArrayList<Double>> matrizCompleta = entrada;
+        procedimiento.append("*** MATRIZ ORIGINAL ***\n");
+        imprimirMatriz(matrizCompleta);
+        metodoDeCrammer(matrizCompleta);
+    }
+
+    private static void imprimirMatriz(ArrayList<ArrayList<Double>> mat) {
+        DecimalFormat df = new DecimalFormat("0.000");
+        String filaBonita = "";
+        for (ArrayList<Double> fila : mat){
+            filaBonita = "[";
+            for (Double num: fila){
+                filaBonita += df.format(num)+"   ";
+            }
+            filaBonita = filaBonita.substring(0, filaBonita.length()-3);
+            filaBonita +="]";
+            procedimiento.append(filaBonita+"\n");
+            filaBonita = "";
+
         }
+        procedimiento.append("\n");
+
     }
 
-    private ArrayList<ArrayList<Double>> matrizSencilla(ArrayList<ArrayList<Double>> matrizCompleta){
+    private static ArrayList<ArrayList<Double>> matrizIncognitas(ArrayList<ArrayList<Double>> matrizCompleta){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
 
         for(ArrayList<Double> arreglo: matrizCompleta){
@@ -138,14 +144,12 @@ public class Cramer extends Fragment implements View.OnClickListener{
         return matriz;
     }
 
-    private double determinante(ArrayList<ArrayList<Double>> matriz) {
+    private static double determinante(ArrayList<ArrayList<Double>> matriz) {
 
         double[][] arr = new double[matriz.size()][matriz.size()];
 
         for(int i = 0; i < matriz.size(); i++){
-            System.out.println("i= "+i);
             for(int j = 0; j < matriz.size(); j++){
-                System.out.println("j= "+j);
                 arr[i][j] = matriz.get(i).get(j);
             }
         }
@@ -154,7 +158,7 @@ public class Cramer extends Fragment implements View.OnClickListener{
 
     }
 
-    private double determinanteUtil(double[][] arr) {
+    private static double determinanteUtil(double[][] arr) {
         double result = 0.0;
         if (arr.length == 1) {
             result = arr[0][0];
@@ -182,18 +186,18 @@ public class Cramer extends Fragment implements View.OnClickListener{
         return result;
     }
 
-    private String metodoDeCrammer(ArrayList<ArrayList<Double>> matrizCompleta){
+    private static void metodoDeCrammer(ArrayList<ArrayList<Double>> matrizCompleta){
         ArrayList<Double> resultados = new ArrayList<Double>();
-        ArrayList<ArrayList<Double>> matrizSencilla = matrizSencilla(matrizCompleta);
-        System.out.println("Otro");
-        Double determinante = determinante(matrizSencilla);
+        ArrayList<ArrayList<Double>> matrizIncognitas = matrizIncognitas(matrizCompleta);
+        Double determinante = determinante(matrizIncognitas);
         if(determinante == 0.0) {
-            toast = Toast.makeText(getActivity(), "No se puede resolver", Toast.LENGTH_LONG);
-            toast.show();
+            procedimiento.append("\n*** EL DETERMINANTE ES IGUAL A CERO ***\n");
         }
         else{
+            procedimiento.append("\n*** EL DETERMINANTE ES  ***\n"+determinante+"\n");
+            procedimiento.append("\n*** LAS MATRICES RESULTANTES SON ***\n");
             for(int i = 0; i < matrizCompleta.size(); i++){
-                matrizSencilla = new ArrayList<ArrayList<Double>>();
+                matrizIncognitas = new ArrayList<ArrayList<Double>>();
                 for(int j = 0; j < matrizCompleta.size(); j++){
                     ArrayList<Double> temp = new ArrayList<Double>();
                     for(int k = 0; k < matrizCompleta.size(); k++){
@@ -202,102 +206,23 @@ public class Cramer extends Fragment implements View.OnClickListener{
                         else
                             temp.add(matrizCompleta.get(j).get(k));
                     }
-                    matrizSencilla.add(temp);
+                    matrizIncognitas.add(temp);
                 }
-                System.out.println("Extra");
-                resultados.add(determinante(matrizSencilla)/determinante);
+                imprimirMatriz(matrizIncognitas);
+                resultados.add(determinante(matrizIncognitas)/determinante);
             }
         }
-        return imprimirCrammer(resultados);
+
+        imprimirIncognitas(resultados);
     }
 
-    private String imprimirCrammer(ArrayList<Double> valores){
+    private static void imprimirIncognitas(ArrayList<Double> valores){
         String res = "";
         for(Double val: valores){
-            res += "X"+valores.indexOf(val)+"= "+val + "\n";
+            res += "X_"+(valores.indexOf(val)+1)+" = "+val + "\n";
         }
-        return res;
+        procedimiento.append("\n*** LOS VALORES DE LAS INCÓGNITAS SON:\n"+res+"\n");
     }
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    //private String mParam1;
-    //private String mParam2;
-
-    //private OnFragmentInteractionListener mListener;
-
-   /* public Cramer() {
-        // Required empty public constructor
-    }*/
-
-
-    // TODO: Rename and change types and number of parameters
-    /*public static Cramer newInstance(String param1, String param2) {
-        Cramer fragment = new Cramer();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cramer, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    /*public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 
 }

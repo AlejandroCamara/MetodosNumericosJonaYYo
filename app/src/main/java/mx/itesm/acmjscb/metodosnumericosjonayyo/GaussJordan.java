@@ -76,19 +76,7 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void validarEntrada(){
-        boolean esMatrizValida = true;
-        for (ArrayList<Double> fila : matriz){
-            for (int i = 0; i<matriz.size();i++){
-                if (fila.get(i) != 0){
-                    esMatrizValida = true;
-                }
-            }
-
-        }
-    }
-
-    public void agregarColumna(String valores){
+    private void agregarColumna(String valores){
         ArrayList<Double> nuevaCol = new ArrayList<Double>();
         String[] datos = valores.split(",");
         for (int i = 0; i<datos.length; i++){
@@ -110,7 +98,7 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
 
     }
 
-    public void imprimirColumnas(){
+    private void imprimirColumnas(){
         String res = "La matriz es:\n";
         for(ArrayList<Double> lista: matriz){
             res += lista.toString();
@@ -119,7 +107,7 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
         columnas.setText(res);
     }
 
-    public  void calcularGaussJordan() {
+    private void calcularGaussJordan() {
 
             procedimiento.append("**** MATRIZ ORIGINAL ****\n");
             imprimirMatriz(matriz);
@@ -135,7 +123,7 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
 
     }
 
-    public static ArrayList<ArrayList<Double>> gaussJordan(ArrayList<ArrayList<Double>> entrada) {
+    private static ArrayList<ArrayList<Double>> gaussJordan(ArrayList<ArrayList<Double>> entrada) {
         int columna = 0;
         ArrayList<ArrayList<Double>> matriz = entrada;
         ArrayList<Double> temp;
@@ -190,7 +178,7 @@ public class GaussJordan extends Fragment implements View.OnClickListener{
         return matriz;
     }
 
-    public static void imprimirMatriz(ArrayList<ArrayList<Double>> mat){
+    private static void imprimirMatriz(ArrayList<ArrayList<Double>> mat){
         DecimalFormat df = new DecimalFormat("0.000");
         String filaBonita = "";
         for (ArrayList<Double> fila : mat){

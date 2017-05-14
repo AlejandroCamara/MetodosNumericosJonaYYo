@@ -77,7 +77,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void agregarColumna(String valores){
+    private void agregarColumna(String valores){
         ArrayList<Double> nuevaCol = new ArrayList<Double>();
         String[] datos = valores.split(",");
         for (int i = 0; i<datos.length; i++){
@@ -101,7 +101,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
         //faltantes.setText("Ecuaciones faltantes: "+numIncog);
 
 
-    public void imprimirColumnas(){
+    private void imprimirColumnas(){
         String res = "La matriz es:\n";
         /*for(ArrayList<Double> lista: matriz){
             for(Double val: lista){
@@ -118,7 +118,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
 
 
 
-    public void calcularGauss() {
+    private void calcularGauss() {
         procedimiento.append("**** MATRIZ ORIGINAL ****\n");
         imprimirMatriz(matriz);
         matriz = gauss(matriz);
@@ -128,7 +128,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
 
     }
 
-    public static ArrayList<ArrayList<Double>> gauss(ArrayList<ArrayList<Double>> matriz){
+    private static ArrayList<ArrayList<Double>> gauss(ArrayList<ArrayList<Double>> matriz){
         int m = 0;
         int n = 0;
         int c = 1;
@@ -157,7 +157,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
     }
 
 
-    public static ArrayList<ArrayList<Double>> gaussSimple(ArrayList<ArrayList<Double>> a, int fila){
+    private static ArrayList<ArrayList<Double>> gaussSimple(ArrayList<ArrayList<Double>> a, int fila){
         //System.out.println("***NUMERO DE FILA *** "+fila);
         ArrayList<ArrayList<Double>> mat = a;
         ArrayList<Double> filaPivote = mat.get(fila);
@@ -215,7 +215,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
         return mat;
     }
 
-    public static  ArrayList<ArrayList<Double>> cambiaFilas( ArrayList<ArrayList<Double>> a, int filaPivote, int siguiente){
+    private static  ArrayList<ArrayList<Double>> cambiaFilas( ArrayList<ArrayList<Double>> a, int filaPivote, int siguiente){
 
         ArrayList<ArrayList<Double>> temp = new ArrayList<ArrayList<Double>>(a.size());
         for (ArrayList<Double> fila: a){
@@ -228,7 +228,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
         return mat;
     }
 
-    public static ArrayList<Double> multiplicarFila(ArrayList<Double> fila, Double multi){
+    private static ArrayList<Double> multiplicarFila(ArrayList<Double> fila, Double multi){
         ArrayList<Double> nuevaFila = new ArrayList<Double>(fila.size());
         Double nuevoNum;
         for (Double num: fila){
@@ -239,7 +239,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
 
     }
 
-    public static ArrayList<Double> sumarFila(ArrayList<Double> fila1, ArrayList<Double> fila2){
+    private static ArrayList<Double> sumarFila(ArrayList<Double> fila1, ArrayList<Double> fila2){
         ArrayList<Double> sumaFila = new ArrayList<Double>(fila1.size());
         for (int cont = 0; cont < fila1.size(); cont++){
             sumaFila.add(fila1.get(cont)+fila2.get(cont));
@@ -248,7 +248,7 @@ public class Gauss extends Fragment implements View.OnClickListener {
 
     }
 
-    public static void imprimirMatriz(ArrayList<ArrayList<Double>> mat){
+    private static void imprimirMatriz(ArrayList<ArrayList<Double>> mat){
         DecimalFormat df = new DecimalFormat("0.000");
         String filaBonita = "";
         for (ArrayList<Double> fila : mat){
