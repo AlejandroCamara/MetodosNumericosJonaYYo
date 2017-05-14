@@ -42,7 +42,7 @@
         android:inputType="numberSigned|numberDecimal" />
 
     <Button
-        android:id="@+id/Agregar"
+        android:id="@+id/btnAgregarFila"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar\nnuevo\npunto"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/PuntosScroll"
         android:layout_alignStart="@+id/PuntosScroll"
-        android:layout_below="@+id/Agregar"
+        android:layout_below="@+id/btnAgregarFila"
         android:text="Puntos a evaluar"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="9dp"

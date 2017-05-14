@@ -1,7 +1,5 @@
 package mx.itesm.acmjscb.metodosnumericosjonayyo;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,7 +32,7 @@ public class InterpolacionNewton extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interpolacion_newton, container, false);
-        agregarPunto = (Button) view.findViewById(R.id.Agregar);
+        agregarPunto = (Button) view.findViewById(R.id.btnAgregarFila);
         eliminarPunto = (Button) view.findViewById(R.id.Eliminar);
         calcular = (Button) view.findViewById(R.id.Calcular);
         puntoX = (EditText) view.findViewById(R.id.PuntoX);
@@ -51,7 +49,7 @@ public class InterpolacionNewton extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.Agregar:
+            case R.id.btnAgregarFila:
                 agregarValores(Double.parseDouble(puntoX.getText().toString()), Double.parseDouble(puntoY.getText().toString()));
                 imprimirValores();
                 break;

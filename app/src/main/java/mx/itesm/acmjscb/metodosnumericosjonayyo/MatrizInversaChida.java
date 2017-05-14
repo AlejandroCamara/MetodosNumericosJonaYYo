@@ -172,7 +172,7 @@ public class MatrizInversaChida
         procedimiento.append("\n");
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo1(){
+    private static ArrayList<ArrayList<Double>> ejemplo1(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(1.0);
@@ -201,7 +201,7 @@ public class MatrizInversaChida
         return matriz;
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo2(){
+    private static ArrayList<ArrayList<Double>> ejemplo2(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(1.0);
@@ -221,7 +221,7 @@ public class MatrizInversaChida
         return matriz;
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo3(){
+    private static ArrayList<ArrayList<Double>> ejemplo3(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(1.0);
@@ -241,7 +241,7 @@ public class MatrizInversaChida
         return matriz;
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo4(){
+    private static ArrayList<ArrayList<Double>> ejemplo4(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(0.0);
@@ -261,7 +261,7 @@ public class MatrizInversaChida
         return matriz;
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo5(){
+    private static ArrayList<ArrayList<Double>> ejemplo5(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(1.0);
@@ -274,7 +274,7 @@ public class MatrizInversaChida
         return matriz;
     }
 
-    public static ArrayList<ArrayList<Double>> ejemplo6(){
+    private static ArrayList<ArrayList<Double>> ejemplo6(){
         ArrayList<ArrayList<Double>> matriz = new ArrayList<ArrayList<Double>>();
         ArrayList<Double> fila = new ArrayList<Double>();
         fila.add(3.0);

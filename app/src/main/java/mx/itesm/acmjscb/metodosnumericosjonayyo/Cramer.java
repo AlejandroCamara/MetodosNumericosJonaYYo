@@ -35,7 +35,7 @@ public class Cramer extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cramer, container, false);
         ecuaciones = new ArrayList<ArrayList<Double>>();
-        agregar = (Button) view.findViewById(R.id.Agregar);
+        agregar = (Button) view.findViewById(R.id.btnAgregarFila);
         borrar = (Button) view.findViewById(R.id.Borrar);
         calcular = (Button) view.findViewById(R.id.Calcular);
         valores = (EditText) view.findViewById(R.id.Valores);
@@ -51,7 +51,7 @@ public class Cramer extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.Agregar:
+            case R.id.btnAgregarFila:
                 try {
                     leerEntrada(valores.getText().toString());
                 } catch(Exception e){

@@ -49,7 +49,7 @@
         android:layout_alignStart="@+id/textView6" />
 
     <Button
-        android:id="@+id/Agregar"
+        android:id="@+id/btnAgregarFila"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar\nValores"
@@ -81,7 +81,7 @@
         android:text="Valores ingresados"
         android:textSize="20sp"
         android:layout_marginTop="12dp"
-        android:layout_below="@+id/Agregar"
+        android:layout_below="@+id/btnAgregarFila"
         android:layout_alignLeft="@+id/PuntosScroll"
         android:layout_alignStart="@+id/PuntosScroll" />
 
